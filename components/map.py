@@ -138,7 +138,7 @@ def show_operations_map(
         # GPS pings — a HeatMap would just stack identical points.
         density = (
             taxi_df
-            .groupby(["region", "latitude", "longitude"])["available_for_hire_taxis"]
+            .groupby("region")["available_for_hire_taxis"]
             .mean()
             .reset_index()
         )
@@ -154,9 +154,11 @@ def show_operations_map(
             radius = get_taxi_radius(taxis, min_taxis, max_taxis)
  
             folium.CircleMarker(
+                lat, lon = REGION_COORDS[row["region"]],
+
                 location=[
-                    row["latitude"],
-                    row["longitude"]
+                    lat,
+                    lon
                 ],
                 radius=radius,
                 color=colour,

@@ -153,13 +153,13 @@ def show_operations_map(
             colour = get_taxi_colour(taxis)
             radius = get_taxi_radius(taxis, min_taxis, max_taxis)
  
-            folium.CircleMarker(
-                lat, lon = REGION_COORDS[row["region"]],
+            if region not in REGION_COORDS:
+                continue
 
-                location=[
-                    lat,
-                    lon
-                ],
+            lat, lon = REGION_COORDS[row["region"]]
+
+            folium.CircleMarker(
+                location=[lat, lon],
                 radius=radius,
                 color=colour,
                 fill=True,
